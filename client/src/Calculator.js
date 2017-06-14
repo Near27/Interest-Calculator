@@ -14,7 +14,7 @@ class Calculator extends Component {
         },
         calculated: '',//['monthly', 'yearly'],
         show: false,
-        array: [],
+        data: ['1', '2', '3'],
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -60,13 +60,13 @@ class Calculator extends Component {
                         </select>
                     </div>
 
-
                     <input
                     type="submit"
                     value="Calculate"
                     className="btn"/>
 
-                    {this.state.show ? <Result /> : null}
+                    {this.state.show ? <Result data={this.state.data} /> : null}
+                    <Result data={this.state.data} />
                 </div>
             </form>
         </div>

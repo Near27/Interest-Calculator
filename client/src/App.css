@@ -236,7 +236,7 @@ thead {
 
 td,
 th {
-  border: 1px solid red;
+  border: 1px solid lightgray;
   padding: 0.5rem;
   text-align: left;
 }
