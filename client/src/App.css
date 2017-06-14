@@ -1,24 +1,282 @@
-.App {
+/**/
+
+.small-container {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  display: block;
+  width: 40vh !important;
+  padding: 1rem;
+}
+
+.medium-container {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  display: block;
+  width: 80vh !important;
+}
+
+.one,
+.one-third,
+.two-thirds,
+.one-fourth,
+.half {
+  width: 100%;
+}
+
+.one {
+  width: 100%;
+}
+
+.half {
+  width: calc(100% / 2);
+}
+
+.one-third {
+  width: calc(100% / 3);
+}
+
+.one-fourth {
+  width: calc(100% / 4);
+}
+
+.two-thirds {
+  width: calc(100% / 3 * 2);
+}
+
+.three-fourths {
+  width: calc(100% / 4 * 3);
+}
+
+.column {
+  display: block;
+  position: relative;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.row {
+  display: block;
+  position: relative;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+
+/* CONTROLS */
+
+.btn {
+  display: block;
+  padding: 10px 20px;
+}
+
+.btn:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 0;
+  padding-top: 0;
+  border-radius: 100%;
+  background-color: rgba(236, 240, 241, .3);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.btn:active:before {
+  width: 120%;
+  padding-top: 120%;
+  transition: width .2s ease-out, padding-top .2s ease-out;
+}
+
+
+/*
+
+APPEARANCE
+
+*/
+
+.white {
+  margin-bottom: 5vh;
+  border-radius: 3px;
+  border: 1px solid lightgray;
+  z-index: 1;
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.dark {
+  border-radius: 3px;
+  border: 1px solid lightgray;
+  z-index: 1;
+  background-color: darkgray;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.small {
+  width: 25vh !important;
+  padding: 1rem;
+}
+
+.content-container {
+  display: block;
+  clear: both;
+  overflow: hidden;
+  padding: .5rem;
+  margin-bottom: 2rem;
+  text-align: left;
+  min-width: 10vh;
+  min-height: 10vh;
+  text-align: left;
+  font-weight: 600;
+  /*margin-bottom*/
+  color: black;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.object-wrapper {
+  background: #fff;
+  border: 1px solid lightgray;
+  border-radius: 2px;
+  display: block;
+  position: relative;
+  transition: all .3s ease-out;
+  margin-bottom: 1vh;
+}
+
+.padding {
+  padding: .5rem;
+}
+
+.page-wrapper {
+  position: absolute;
   text-align: center;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: lavender;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+
+/*
+
+TYPOGRAPHY
+
+*/
+
+p {
+  line-height: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: black;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+p {
+  font-weight: 500 !important;
+}
+
+h1 {
+  font-size: 1.8rem;
+  line-height: 1.8rem;
+  /*margin-top: calc((#{1.5rem} - #{1.8rem}) + #{1.5rem});*/
+}
+
+h2 {
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  /*margin-top: calc((#{1.5rem} - #{1.2rem}) + #{1.5rem}*2);*/
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.2rem;
+}
+
+label {
+  color: black;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead {
+  background-color: #bc322a;
   color: white;
+  font-size: 14px !important;
 }
 
-.App-intro {
-  font-size: large;
+td,
+th {
+  border: 1px solid red;
+  padding: 0.5rem;
+  text-align: left;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+table {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+
+/*
+
+INPUT
+
+*/
+
+input {
+  appearance: none;
+  box-sizing: border-box;
+  border-radius: 3px;
+  display: inline-block;
+  outline: 0;
+  margin-bottom: .5rem;
+  height: 40px;
+  padding: 10px 16px;
+  transition: transform 225ms ease-in-out;
+  background: white;
+  color: black;
+  margin: 1rem;
+}
+
+select,
+select[size="0"],
+select[size="1"] {
+  border-radius: 0px;
+  height: 30px;
+  border: 0;
+  color: black;
+  margin: 1rem;
+}
+
+input:focus {
+  border: 1px solid darkslateblue !important;
 }
