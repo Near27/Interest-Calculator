@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Result from './Result';
+import axios from 'axios';
 
 class Calculator extends Component {
   constructor() {
@@ -21,8 +22,19 @@ class Calculator extends Component {
   }
 
   handleSubmit(e) {
-      this.setState({show: true})
-  } 
+      console.log(this.refs.initialAmount.value);
+      axios.get('http://localhost:3001/calculate')
+          .then((res) => {
+              console.log(res.data);
+              this.setState({
+                  show: 1,
+                  data: res.data,
+              })
+          })
+          .catch((err) => {
+              console.log('Error');
+          })
+  }
   
   render() {
     return (
