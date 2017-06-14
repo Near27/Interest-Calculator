@@ -7,10 +7,20 @@ class Result extends Component {
         this.state = {
             currencies: ['gbp', 'usd', 'eur'],
             rates: [],
+            totalConverted: 0,
         }
         this.fetchRates = this.fetchRates.bind(this);
         this.exchange = this.exchange.bind(this);
+        this.fetchRates();
     }
+
+    componentDidMount(){
+        this.setState({
+            totalConverted: this.props.total,
+            currencies: this.state.currencies.filter(c => c !== this.props.currency),
+        })
+    }
+    
 
     fetchRates(e) {
         let url = 'http://localhost:3001/calculate/' + this.props.currency;
@@ -29,9 +39,7 @@ class Result extends Component {
     }
 
     exchange(e) {
-        console.log(e.target.value);
-        this.fetchRates();
-        this.setState({total: parseFloat(this.state.total) * this.state.rates[0]})
+        this.setState({totalConverted: this.props.total * this.state.rates[this.state.currencies.indexOf(e.target.value)]})
     }
 
     render() {
@@ -40,6 +48,17 @@ class Result extends Component {
                 <label>Result</label>
                 <p>{this.state.rates}</p>
                 <p>{this.props.currency}</p>
+                <div className="row">
+                    <p>{this.props.total.toFixed(2)}</p>
+                    <select 
+                                    onChange={this.exchange}
+                                    type="dropdown"
+                                    ref="currency"
+                                    placeholder="Choose currency">
+                                    {this.state.currencies.map(c => <option value={c}>{c}</option>)}
+                                </select>
+                    <p>{this.state.totalConverted.toFixed(2)}</p>
+                </div>
                 <table className="result">
                     <thead>
                         <tr>
@@ -51,17 +70,9 @@ class Result extends Component {
                     <tfoot>
                         <tr>
                             <td>
-                                <select 
-                                    onChange={this.fetchRates}
-                                    type="dropdown"
-                                    ref="currency"
-                                    placeholder="Choose currency">
-                                    <option value="gbp">Pound</option>
-                                    <option value="usd">Dollar</option>
-                                    <option value="eur">Euro</option>
-                                </select>
+                                
                             </td>
-                            <td>Total interest: </td><td>{this.props.total}</td>
+                            <td>Total interest: </td><td>{this.props.total.toFixed(2)}</td>
                         </tr>
                     </tfoot>
                     <TableRows interest={this.props.interest} balance={this.props.balance} />
@@ -77,11 +88,11 @@ const TableRows = (props) => (
             return (
                 <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{row}</td>
-                    <td>{props.balance[index]}</td>
+                    <td>{row.toFixed(2)}</td>
+                    <td>{props.balance[index].toFixed(2)}</td>
                 </tr>
             )
-        })
+          })
         }
     </tbody>
 )

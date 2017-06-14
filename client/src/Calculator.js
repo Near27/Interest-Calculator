@@ -5,11 +5,11 @@ class Calculator extends Component {
     constructor() {
         super();
         this.state = {
-            currency: 'gbp',
-            initialAmount: 900,
+            currency: 'gbp',//'gbp',
+            initialAmount: 0,//900,
             interestRate: 5,
-            calculatedFor: 4,
-            timeSpan: 'months',
+            calculatedFor: 2,
+            timeSpan: 'years',
             show: false,
             interest: [],
             balance: [],
@@ -19,88 +19,17 @@ class Calculator extends Component {
         this.setCurrency = this.setCurrency.bind(this);
     }
 
-    setCurrency(e) {
-        this.setState({ currency: e.target.value });
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-
-        let intr = this.state.interest;
-        let initialAmount = this.state.initialAmount;
-
-        //let isYearly = false;
-        let perYear = false;
-
-        let interest = [];
-        let balance = [];
-        //
-        /*
-        switch (this.state.calculated) {
-            case 'yearly':
-                isYearly = true
-                console.log('yearly');
-                break;
-            case 'monthly':
-                console.log('monthly');
-                break;
-            default:
-                console.log('You have to choose how the interest is calculated');
-        }
-        */
-
-        switch (this.state.timeSpan) {
-            case 'years':
-                perYear = true;
-                console.log(this.state.calculatedFor + ' months');
-                break;
-            case 'months':
-                console.log(this.state.calculatedFor + ' months');
-                break;
-            default:
-                console.log('No timeSpan');
-        }
-
-        if (perYear) {
-            for (let i = 0; i < this.state.calculatedFor * 12; i++) {
-
-                interest.push(parseFloat(initialAmount) * 5 / 100);
-
-                initialAmount = initialAmount + interest;
-                balance.push(initialAmount);
-            }
-        } else {
-            for (let i = 0; i < this.state.calculatedFor; i++) {
-                let temp = parseFloat(initialAmount) * 5 / 100;
-                interest.push(temp);
-
-                initialAmount = initialAmount + temp;
-                balance.push(initialAmount);
-            }
-        }
-        //
-        console.log(interest);
-        console.log(balance);
-        this.setState({
-            show: 1,
-            total: initialAmount,
-            interest: interest,
-            balance: balance,
-        })
-    }
-
     render() {
         return (
             <div className="object-wrapper padding">
                 <form onSubmit={this.handleSubmit}>
                     <div className="column">
                         <label>Currency</label>
-                        <select
-                            type="dropdown"
-                            ref="currency"
-                            placeholder="Choose currency"
-                            onChange={this.setCurrency}>
-                            <option value="gbp">Pound</option>
+
+                        <select 
+                            onChange={this.setCurrency}
+                            defaultValue="gbp" >
+                            <option selected value="gbp">Pound</option>
                             <option value="usd">Dollar</option>
                             <option value="eur">Euro</option>
                         </select>
@@ -114,16 +43,18 @@ class Calculator extends Component {
                         <input type="number"
                             step="0.01"
                             ref="interestRate" />
-                        
+
                         <div className="row">
                             <div className="column">
                                 <label>Calculated For</label>
-                                <input type="calculatedFor"
-                                       step="0.01"
-                                       ref="numberOf" />
+                                <input type="number"
+                                    step="0.01"
+                                    ref="calculatedFor" />
                             </div>
-                            <select type="dropdown"
-                                    ref="timeSpan">
+                            <select
+                                defaultValue="months" 
+                                type="dropdown"
+                                ref="timeSpan">
                                 <option value="months">Months</option>
                                 <option value="years">Years</option>
                             </select>
@@ -142,6 +73,41 @@ class Calculator extends Component {
                 </form>
             </div>
         );
+    }
+    setCurrency(e) {
+        this.setState({ currency: e.target.value });
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        let intr = parseInt(this.refs.interestRate.value);//this.state.interest;
+        let initialAmount = parseInt(this.refs.initialAmount.value);//parseFloat(this.state.initialAmount.toFixed(2));
+
+        let interests = [];
+        let balance = [];
+
+        if (this.refs.timeSpan.value.match('years')) {
+            for (let i = 0; i < this.refs.calculatedFor.value * 12; i++) {
+                let interest = (initialAmount * intr) / 100;
+                interests.push(interest);
+                initialAmount += interest;
+                balance.push(initialAmount);
+            }
+        } else {
+            console.log("months");
+            for (let i = 0; i < this.refs.calculatedFor.value; i++) {
+                let interest = (initialAmount * intr) / 100;
+                interests.push(interest);
+                initialAmount += interest;
+                balance.push(initialAmount);
+            }
+        }
+        this.setState({
+            show: 1,
+            total: initialAmount - this.refs.initialAmount.value,
+            interest: interests,
+            balance: balance,
+        })
     }
 }
 
