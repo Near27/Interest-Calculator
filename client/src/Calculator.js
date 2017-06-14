@@ -15,6 +15,7 @@ class Calculator extends Component {
         calculated: '',//['monthly', 'yearly'],
         show: false,
         data: ['1', '2', '3'],
+        total: 1060,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }

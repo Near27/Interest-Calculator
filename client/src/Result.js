@@ -4,7 +4,8 @@ class Result extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: props.data
+      data: props.data,
+      total: props.total,
     }
   }
   
@@ -24,7 +25,7 @@ class Result extends Component {
                 <tfoot>
                     <tr>
                     <td></td>
-                    <td>Total:</td><td>0</td>
+                    <td>Total interest:</td><td>{this.state.total}</td>
                     </tr>
                 </tfoot>
                 <TableRows data={this.state.data} />
@@ -36,10 +37,10 @@ class Result extends Component {
 
 const TableRows = (props) => (
     <tbody>
-    { props.data.map((row) => {
+    { props.data.map((row, index) => {
             return (
-                <tr>
-                    <td></td>
+                <tr key={index}>
+                    <td>{index}</td>
                     <td>{row}</td>
                     <td>{row}</td>
                 </tr>
