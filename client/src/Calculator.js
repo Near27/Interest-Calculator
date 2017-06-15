@@ -79,24 +79,20 @@ class Calculator extends Component {
         e.preventDefault();
         let intr = parseInt(this.refs.interestRate.value);
         let initialAmount = parseInt(this.refs.initialAmount.value);
+        let months = this.refs.calculatedFor.value;
 
         let monthlyInterest = [];
         let balanceList = [];
 
         if (this.refs.timeSpan.value.match('years')) {
-            for (let i = 0; i < this.refs.calculatedFor.value * 12; i++) {
-                let interest = (initialAmount * intr) / 100;
-                monthlyInterest.push(interest);
-                initialAmount += interest;
-                balanceList.push(initialAmount);
-            }
-        } else {
-            for (let i = 0; i < this.refs.calculatedFor.value; i++) {
-                let interest = (initialAmount * intr) / 100;
-                monthlyInterest.push(interest);
-                initialAmount += interest;
-                balanceList.push(initialAmount);
-            }
+            months *= 12;
+        }
+
+        for (let i = 0; i < months; i++) {
+            let interest = (initialAmount * intr) / 100;
+            monthlyInterest.push(interest);
+            initialAmount += interest;
+            balanceList.push(initialAmount);
         }
 
         this.setState({
