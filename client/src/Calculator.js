@@ -66,8 +66,7 @@ class Calculator extends Component {
                 </form>
                 {this.state.show ? <Result currency={this.state.currency}
                     interest={this.state.interest}
-                    balance={this.state.balanceList}
-                    total={this.state.total} /> : null}
+                    balance={this.state.balanceList} /> : null}
             </div>
         );
     }

@@ -7,7 +7,9 @@ class Result extends Component {
         this.state = {
             currencies: ['gbp', 'usd', 'eur'],
             rates: [],
+            total: 0,
             totalConverted: 0,
+            convertedCurrency: '',
         }
         this.fetchRates = this.fetchRates.bind(this);
         this.exchange = this.exchange.bind(this);
@@ -17,8 +19,9 @@ class Result extends Component {
     render() {
         return (
             <div className="object-wrapper padding">
+            <label>Change currency</label>
                 <div className="row-c-space">
-                    <h1>{this.props.total.toFixed(2)}</h1>
+                    <h1>{this.state.total.toFixed(2)}{this.getLabel(this.props.currency)}</h1>
                     <select 
                             onChange={this.exchange}
                             type="dropdown"
@@ -39,7 +42,7 @@ class Result extends Component {
                         <tr>
                             <td></td>
                             <td>Total interest: </td>
-                            <td>{this.props.total.toFixed(2)}</td>
+                            <td>{this.state.total.toFixed(2)}{this.getLabel(this.props.currency)}</td>
                         </tr>
                     </tfoot>
                     <TableRows interest={this.props.interest} balance={this.props.balance} />
@@ -49,14 +52,19 @@ class Result extends Component {
     }
 
     componentDidMount(){
+        let total = this.props.balance[this.props.balance.length - 1];
         this.setState({
-            totalConverted: this.props.total,
+            total: total,
+            totalConverted: total,
             currencies: this.state.currencies.filter(c => c !== this.props.currency),
         })
     }
 
     exchange(e) {
-        this.setState({totalConverted: this.props.total * this.state.rates[this.state.currencies.indexOf(e.target.value)]})
+        this.setState({totalConverted: this.state.total * this.state.rates[this.state.currencies.indexOf(e.target.value)],
+            convertedCurrency: e.target.value,
+
+                        })
     }
     
     fetchRates(e) {
@@ -72,6 +80,22 @@ class Result extends Component {
             .catch((err) => {
                 console.log('Error');
             })
+    }
+
+    getLabel(input) {
+        switch (this.props.currency) {
+            case 'gbp':
+                return <label>&#163;</label>
+                break;
+            case 'usd':
+                return <label>&#36;</label>
+                break;
+            case 'eur':
+                return <label>&#8364;</label>
+                break;
+            default:
+                break;
+        }
     }
 }
 
