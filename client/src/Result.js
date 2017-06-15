@@ -92,26 +92,4 @@ const TableRows = (props) => (
     </tbody>
 )
 
-const Currency = (props) => (
-    <div>
-    {
-        /*
-    switch (props.currency) {
-        case 'gbp':
-            return <span>&pound</span>
-            break;
-        case 'dollar':
-            return <span>&dollar</span>
-            break;
-        case 'euro':
-            return <span>&euro</span>
-            break;
-        default:
-            break;
-    }
-    */
-    }
-    </div>
-)
-
 export default Result;
