@@ -172,6 +172,12 @@ APPEARANCE
   background-color: lavender;
 }
 
+.convertorDivider {
+  background-color: lightgrey;
+  width: 20px;
+  height: 3px;
+  border-radius: 2px;
+}
 
 /*
 
