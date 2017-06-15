@@ -14,7 +14,7 @@ class Result extends Component {
         return (
             <div className="object-wrapper padding">
                 <label>Change currency</label>
-                <Convertor currency={this.props.currency} total={this.state.total} />
+                <Convertor getLabel={this.getLabel} currency={this.props.currency} total={this.state.total} />
                 <table className="result">
                     <thead>
                         <tr>
@@ -42,7 +42,7 @@ class Result extends Component {
     }
 
     getLabel(input) {
-        switch (this.props.currency) {
+        switch (input) {
             case 'gbp':
                 return <label>&#163; </label>
             case 'usd':

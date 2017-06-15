@@ -20,7 +20,7 @@ class Convertor extends Component {
     render() {
         return (
             <div className="row-c-space">
-                <h1>Total: {this.props.total.toFixed(2) }{this.getLabel(this.props.currency) }</h1>
+                <h1>Total: {this.props.total.toFixed(2) }{this.props.getLabel(this.props.currency) }</h1>
                 <hr className="convertorDivider" />
                 <h1>{ this.state.totalConverted.toFixed(2) }</h1>
                 <select
@@ -60,19 +60,6 @@ class Convertor extends Component {
             .catch((err) => {
                 console.log('Error');
             })
-    }
-
-    getLabel(input) {
-        switch (this.props.currency) {
-            case 'gbp':
-                return <label>&#163; </label>
-            case 'usd':
-                return <label>&#36; </label>
-            case 'eur':
-                return <label>&#8364; </label>
-            default:
-                break;
-        }
     }
 }
 
