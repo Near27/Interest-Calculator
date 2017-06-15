@@ -40,7 +40,7 @@ class Result extends Component {
                         <tr>
                             <td></td>
                             <td>
-                            Total interest: </td><td>{this.props.total.toFixed(2)} <Currency currency={this.props.currency} />
+                            Total interest: </td><td>{this.props.total.toFixed(2)}
                             </td>
                         </tr>
                     </tfoot>
