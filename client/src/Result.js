@@ -12,6 +12,42 @@ class Result extends Component {
         this.fetchRates = this.fetchRates.bind(this);
         this.exchange = this.exchange.bind(this);
         this.fetchRates();
+
+    }
+
+    render() {
+        return (
+            <div className="object-wrapper padding">
+                <div className="row-c-space">
+                    <h1>{this.props.total.toFixed(2)}</h1>
+                    <select 
+                            onChange={this.exchange}
+                            type="dropdown"
+                            ref="currency">
+                            {this.state.currencies.map(c => <option value={c}>{c}</option>)}
+                    </select>
+                    <h1>{this.state.totalConverted.toFixed(2)}</h1>
+                </div>
+                <table className="result">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Interest</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td>
+                            Total interest: </td><td>{this.props.total.toFixed(2)} <Currency currency={this.props.currency} />
+                            </td>
+                        </tr>
+                    </tfoot>
+                    <TableRows interest={this.props.interest} balance={this.props.balance} />
+                </table>
+            </div>
+        );
     }
 
     componentDidMount(){
@@ -20,65 +56,24 @@ class Result extends Component {
             currencies: this.state.currencies.filter(c => c !== this.props.currency),
         })
     }
-    
 
+    exchange(e) {
+        this.setState({totalConverted: this.props.total * this.state.rates[this.state.currencies.indexOf(e.target.value)]})
+    }
+    
     fetchRates(e) {
         let url = 'http://localhost:3001/calculate/' + this.props.currency;
-        console.log(url);
+
         axios.get(url)
             .then((res) => {
                 console.log(res.data);
                 this.setState({
                     rates: res.data,
                 })
-                
             })
             .catch((err) => {
                 console.log('Error');
             })
-    }
-
-    exchange(e) {
-        this.setState({totalConverted: this.props.total * this.state.rates[this.state.currencies.indexOf(e.target.value)]})
-    }
-
-    render() {
-        return (
-            <div className="object-wrapper padding">
-                <label>Result</label>
-                <p>{this.state.rates}</p>
-                <p>{this.props.currency}</p>
-                <div className="row">
-                    <p>{this.props.total.toFixed(2)}</p>
-                    <select 
-                                    onChange={this.exchange}
-                                    type="dropdown"
-                                    ref="currency"
-                                    placeholder="Choose currency">
-                                    {this.state.currencies.map(c => <option value={c}>{c}</option>)}
-                                </select>
-                    <p>{this.state.totalConverted.toFixed(2)}</p>
-                </div>
-                <table className="result">
-                    <thead>
-                        <tr>
-                            <th>Y/M</th>
-                            <th>Interest</th>
-                            <th>Balance</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <td>
-                                
-                            </td>
-                            <td>Total interest: </td><td>{this.props.total.toFixed(2)}</td>
-                        </tr>
-                    </tfoot>
-                    <TableRows interest={this.props.interest} balance={this.props.balance} />
-                </table>
-            </div>
-        );
     }
 }
 
@@ -95,6 +90,28 @@ const TableRows = (props) => (
           })
         }
     </tbody>
+)
+
+const Currency = (props) => (
+    <div>
+    {
+        /*
+    switch (props.currency) {
+        case 'gbp':
+            return <span>&pound</span>
+            break;
+        case 'dollar':
+            return <span>&dollar</span>
+            break;
+        case 'euro':
+            return <span>&euro</span>
+            break;
+        default:
+            break;
+    }
+    */
+    }
+    </div>
 )
 
 export default Result;

@@ -59,12 +59,19 @@
 }
 
 .row {
-  display: block;
-  position: relative;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
+}
+
+.row-c-space {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
 
@@ -138,7 +145,6 @@ APPEARANCE
   min-height: 10vh;
   text-align: left;
   font-weight: 600;
-  /*margin-bottom*/
   color: black;
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -159,7 +165,6 @@ APPEARANCE
 
 .page-wrapper {
   position: absolute;
-  text-align: center;
   top: 0;
   left: 0;
   height: 100vh;
@@ -215,6 +220,7 @@ p {
 label {
   color: black;
   font-family: 'Source Sans Pro', sans-serif;
+  margin-left: 10px;
   font-weight: 600;
   font-size: 16px;
 }
@@ -261,20 +267,18 @@ input {
   margin-bottom: .5rem;
   height: 40px;
   padding: 10px 16px;
-  transition: transform 225ms ease-in-out;
   background: white;
   color: black;
-  margin: 1rem;
+  margin: 10px;
 }
 
-select,
-select[size="0"],
-select[size="1"] {
+select {
   border-radius: 0px;
-  height: 30px;
+  height: 40px;
   border: 0;
   color: black;
-  margin: 1rem;
+  padding: 10px 16px;
+  margin: 10px;
 }
 
 input:focus {
