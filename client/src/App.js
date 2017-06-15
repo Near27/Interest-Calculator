@@ -12,7 +12,6 @@ class App extends Component {
   
   render() {
     let title = this.state.title;
-    let header = this.state.header;
     return (
       <div className="page-wrapper">
         <div className="medium-container">

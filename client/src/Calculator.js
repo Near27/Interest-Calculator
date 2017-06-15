@@ -77,8 +77,8 @@ class Calculator extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        let intr = parseInt(this.refs.interestRate.value);
-        let initialAmount = parseInt(this.refs.initialAmount.value);
+        let intr = parseInt(this.refs.interestRate.value, 10);
+        let initialAmount = parseInt(this.refs.initialAmount.value, 10);
         let months = this.refs.calculatedFor.value;
 
         let monthlyInterest = [];

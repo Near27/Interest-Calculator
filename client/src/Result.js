@@ -12,7 +12,6 @@ class Result extends Component {
         this.fetchRates = this.fetchRates.bind(this);
         this.exchange = this.exchange.bind(this);
         this.fetchRates();
-
     }
 
     render() {
@@ -24,7 +23,7 @@ class Result extends Component {
                             onChange={this.exchange}
                             type="dropdown"
                             ref="currency">
-                            {this.state.currencies.map(c => <option value={c}>{c}</option>)}
+                            {this.state.currencies.map((c, index) => <option key={index} value={c}>{c}</option>)}
                     </select>
                     <h1>{this.state.totalConverted.toFixed(2)}</h1>
                 </div>
@@ -39,9 +38,8 @@ class Result extends Component {
                     <tfoot>
                         <tr>
                             <td></td>
-                            <td>
-                            Total interest: </td><td>{this.props.total.toFixed(2)}
-                            </td>
+                            <td>Total interest: </td>
+                            <td>{this.props.total.toFixed(2)}</td>
                         </tr>
                     </tfoot>
                     <TableRows interest={this.props.interest} balance={this.props.balance} />
